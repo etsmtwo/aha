@@ -1,0 +1,27 @@
+GCC=gcc
+CFLAGS=-g -c
+SRC=./../src
+INC=./../inc
+BIN=./../bin
+LIB=./../lib
+DATA=./../data
+OBJ=./../obj
+IFLAGS=-I$(INC)
+LFLAGS=
+
+all:
+$(BIN)/exe $(DATA)input.txt $(DATA)out.txt
+
+$(OBJ)/test.o : $(SRC)/test.c $(INC)/remove_duplicates.h
+$(GCC) $(CFLAGS) $(SRC)/test.c $(IFLAGS)
+	mv test.o $(OBJ)/
+
+$(BIN)/exe : $(OBJ)/test.o $(OBJ)/remove_duplicates.o
+	$(GCC) -Wall -o exe $(OBJ)/test.o $(OBJ)/remove_duplicates.o
+	mv exe $(BIN)/
+
+
+clean:
+rm -f $(OBJ)/*.o $(BIN)/exe
+
+
